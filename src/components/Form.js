@@ -11,11 +11,13 @@ const Form = () => {
         terms: ""
     };
     const inputChange = e => {
+        let role = document.getElementById("role");
+        // let roleValue = role.options[role.selectedIndex].value
         e.persist();
         const newFormData = {
             ...formState,
-            [e.target.name]:
-                e.target.type === "checkbox" ? e.target.checked : e.target.value
+            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
+            // role: roleValue,
         };
         validateChange(e);
         setFormState(newFormData);
@@ -99,6 +101,7 @@ const Form = () => {
                     name="name"
                     value={formState.name}
                     onChange={inputChange}
+                    data-cy="name"
                 // Don't really understand role of value or onChange here
                 />
                 {errors.name.length > 0 ? (<p className="error">{errors.name}</p>) : null}
@@ -110,6 +113,7 @@ const Form = () => {
                     name="email"
                     value={formState.email}
                     onChange={inputChange}
+                    data-cy="email"
                 />
                 {errors.email.length > 0 ? (
                     <p className="error">{errors.email}</p>
@@ -122,6 +126,7 @@ const Form = () => {
                     name="password"
                     value={formState.password}
                     onChange={inputChange}
+                    data-cy="password"
                 />
                 {errors.password.length > 8 ? (<p className="error">{errors.password}</p>) : null}
             </label>
@@ -130,7 +135,7 @@ const Form = () => {
                 <select id="role" name="role" onChange={inputChange}>
                     {/* Why is there no value for role or terms? is it bc nothing is being typed by user? */}
                     <option value="Choose an Option">--Choose a Role--</option>
-                    <option value="To pass the butter">Pass Butter</option>
+                    <option value="Pass Butter">Pass Butter</option>
                     <option value="Data Analyst">Data Analyst</option>
                     <option value="Backend Engineer">Backend Engineer</option>
                     <option value="Frontend Engineer">Frontend Engineer</option>
@@ -146,7 +151,7 @@ const Form = () => {
                 />
                 Terms and Conditions
             </label>
-            <button disabled={buttonDisabled} type="submit">Submit</button>
+            <button data-cy="submit" disabled={buttonDisabled} type="submit">Submit</button>
         </form>
     )
 
